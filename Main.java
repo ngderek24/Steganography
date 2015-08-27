@@ -2,6 +2,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
@@ -24,6 +26,10 @@ public class Main {
 	private String imgName;
 	private String inputPath;
 	private String inputName;
+	private JTextField imgField;
+	private JTextField resultField;
+	private String decodeImgPath;
+	private String decodeImgName;
 
 	/**
 	 * Launch the application.
@@ -96,8 +102,8 @@ public class Main {
 		encryptPanel.add(outputField);
 		outputField.setColumns(10);
 		
-		JButton imgBtn = new JButton("Browse");
-		imgBtn.addActionListener(new ActionListener() {
+		JButton imageBtn = new JButton("Browse");
+		imageBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser chooser = new JFileChooser();
 				chooser.showOpenDialog(null);
@@ -107,8 +113,8 @@ public class Main {
 				imageField.setText(imgName);
 			}
 		});
-		imgBtn.setBounds(312, 30, 87, 23);
-		encryptPanel.add(imgBtn);
+		imageBtn.setBounds(312, 30, 87, 23);
+		encryptPanel.add(imageBtn);
 		
 		JButton inputBtn = new JButton("Browse");
 		inputBtn.addActionListener(new ActionListener() {
@@ -128,9 +134,9 @@ public class Main {
 		btnEncode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Encode.encode(imgPath, inputPath);
+					Encode.encode(outputField.getText(), imgPath, inputPath);
 				} catch (IOException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1);
 				}
 			}
 		});
@@ -140,5 +146,52 @@ public class Main {
 		JPanel decryptPanel = new JPanel();
 		tabbedPane.addTab("Decrypt", null, decryptPanel, null);
 		decryptPanel.setLayout(null);
+		
+		JLabel lblImg = new JLabel("Image (.png)");
+		lblImg.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+		lblImg.setBounds(26, 30, 84, 21);
+		decryptPanel.add(lblImg);
+		
+		imgField = new JTextField();
+		imgField.setBounds(108, 28, 260, 26);
+		decryptPanel.add(imgField);
+		imgField.setColumns(10);
+		
+		JButton imgBtn = new JButton("Browse");
+		imgBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(null);
+				File file = chooser.getSelectedFile();
+				decodeImgPath = file.getAbsolutePath();
+				decodeImgName = file.getName();
+				imgField.setText(decodeImgName);
+			}
+		});
+		imgBtn.setBounds(279, 72, 89, 23);
+		decryptPanel.add(imgBtn);
+		
+		JLabel lblResult = new JLabel("Output (.txt)");
+		lblResult.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+		lblResult.setBounds(26, 121, 84, 21);
+		decryptPanel.add(lblResult);
+		
+		resultField = new JTextField();
+		resultField.setBounds(108, 119, 260, 26);
+		decryptPanel.add(resultField);
+		resultField.setColumns(10);
+		
+		JButton btnDecode = new JButton("Decode");
+		btnDecode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*try {
+					Decode.decode();
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null, e1);
+				}*/
+			}
+		});
+		btnDecode.setBounds(279, 158, 89, 23);
+		decryptPanel.add(btnDecode);
 	}
 }
