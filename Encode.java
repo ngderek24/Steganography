@@ -1,14 +1,13 @@
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
-import java.io.File;
-import java.awt.image.BufferedImage;
-
 public class Encode {
-
+	// read in the text of file line by line
 	public static String readFile(String fileName) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(fileName));
 	    try {
@@ -27,6 +26,7 @@ public class Encode {
 	    }
 	}
 	
+	// encode message into the image
 	public static void encode(String imgName, String imgPath, String fileName) throws IOException {
 		try{
 			// error checking
@@ -73,6 +73,7 @@ public class Encode {
 			// save encoded image 
 			File outputFile = new File(imgName);
 			ImageIO.write(outImg, "png", outputFile);
+			
 		} catch(Exception e){
 			JOptionPane.showMessageDialog(null, e);
 		}
