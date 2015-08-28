@@ -184,11 +184,11 @@ public class Main {
 		JButton btnDecode = new JButton("Decode");
 		btnDecode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*try {
-					Decode.decode();
+				try {
+					Decode.decode(decodeImgPath, resultField.getText());
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null, e1);
-				}*/
+				}
 			}
 		});
 		btnDecode.setBounds(279, 158, 89, 23);
